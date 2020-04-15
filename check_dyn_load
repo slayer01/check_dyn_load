@@ -1,0 +1,17 @@
+#!/bin/bash
+cores=$(cat /proc/cpuinfo | grep -c "processor" )
+
+neunzig=$(awk '{print $1*90/100}' <<<"${cores}" )
+achtzig=$(awk '{print $1*80/100}' <<<"${cores}" )
+siebzig=$(awk '{print $1*70/100}' <<<"${cores}" )
+
+w1=$neunzig
+w2=$achtzig
+w3=$siebzig
+
+c1=$cores
+c2=$neunzig
+c3=$achtzig
+
+/usr/lib64/nagios/plugins/check_load -w $w1,$w2,$w3 -c $c1,$c2,$c3
+
